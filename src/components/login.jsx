@@ -14,11 +14,6 @@ import GoogleIcon from "@mui/icons-material/Google";
 export default function Login() {
   const navigate = useNavigate();
 
-  const VALID_CREDENTIALS = {
-    email: "admin",
-    password: "root",
-  };
-
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState(false);
 
@@ -26,17 +21,34 @@ export default function Login() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      form.email === VALID_CREDENTIALS.email &&
-      form.password === VALID_CREDENTIALS.password
-    ) {
-      console.log("✅ Login exitoso");
-      setError(false);
-      navigate("/home");
-    } else {
-      console.log("❌ Credenciales incorrectas");
+
+    try {
+      const response = await fetch(
+        `https://littleboxapi.azurewebsites.net/api/login?email=${encodeURIComponent(
+          form.email
+        )}&password=${encodeURIComponent(form.password)}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.length > 0 && data[0].Result === 1) {
+        console.log("✅ Login exitoso");
+        setError(false);
+        navigate("/home");
+      } else {
+        console.log("❌ Credenciales incorrectas");
+        setError(true);
+      }
+    } catch (err) {
+      console.error("Error al conectar con la API:", err);
       setError(true);
     }
   };
@@ -44,23 +56,23 @@ export default function Login() {
   return (
     <Box
       sx={{
-        height: "100vh",          // Toda la altura de la ventana
-        width: "100vw",           // Toda la anchura de la ventana
-        display: "flex",          // Layout en dos columnas
-        overflow: "hidden",       // Evita scroll extra
+        height: "100vh",
+        width: "100vw",
+        display: "flex",
+        overflow: "hidden",
       }}
     >
       {/* Mitad Izquierda: Formulario */}
       <Box
         sx={{
-          width: "50%",           // Ocupar mitad izquierda
+          width: "50%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           background: "linear-gradient(135deg, #8B0000, #E53935)",
         }}
       >
-        <Container maxWidth={false} /* Quita el limite 'xs' si quieres más ancho */>
+        <Container maxWidth={false}>
           <Paper
             elevation={6}
             sx={{
@@ -70,13 +82,13 @@ export default function Login() {
               alignItems: "center",
               borderRadius: 3,
               backgroundColor: "white",
-              maxWidth: 400, /* Controla el ancho del Paper si deseas */
+              maxWidth: 400,
               margin: "0 auto",
             }}
           >
             {/* Logo */}
             <img
-              src="/viba1.png"  // Revisa que exista en tu carpeta public/
+              src="/viba1.png"
               alt="Carnes ViBa"
               style={{ width: "150px", marginBottom: "20px" }}
             />
@@ -86,16 +98,11 @@ export default function Login() {
             </Typography>
 
             {/* Formulario */}
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              sx={{ width: "100%", mt: 2 }}
-            >
+            <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", mt: 2 }}>
               <TextField
                 label="Email"
                 name="email"
                 type="text"
-                
                 value={form.email}
                 onChange={handleChange}
                 fullWidth
@@ -114,11 +121,7 @@ export default function Login() {
                 helperText={error ? "Correo o contraseña incorrectos" : ""}
               />
 
-              <Link
-                href="#"
-                underline="hover"
-                sx={{ display: "block", textAlign: "right", mt: 1 }}
-              >
+              <Link href="#" underline="hover" sx={{ display: "block", textAlign: "right", mt: 1 }}>
                 ¿Olvidaste tu contraseña?
               </Link>
 
@@ -177,14 +180,13 @@ export default function Login() {
       {/* Mitad Derecha: Imagen de fondo */}
       <Box
         sx={{
-          width: "50%",                // Mitad derecha
+          width: "50%",
           backgroundImage: "url('/carne.png')",
-          backgroundSize: "cover",     // Ocupa todo el espacio (recortando si no encaja)
+          backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       />
     </Box>
-  
   );
 }
