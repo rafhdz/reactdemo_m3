@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  TextField,
+  Input,
   Button,
-  Box,
-  Typography,
-  Container,
-  Paper,
   Link,
-} from "@mui/material";
+  Title,
+  Text,
+  FlexBox,
+  FlexBoxDirection
+} from "@ui5/webcomponents-react";
 import GoogleIcon from "@mui/icons-material/Google";
+import { Button as MuiButton } from "@mui/material";
+
+
 
 export default function Login() {
   const navigate = useNavigate();
-
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState(false);
 
@@ -42,6 +44,7 @@ export default function Login() {
       if (data.length > 0 && data[0].Result === 1) {
         console.log("✅ Login exitoso");
         setError(false);
+        localStorage.setItem("auth", "true");
         navigate("/home");
       } else {
         console.log("❌ Credenciales incorrectas");
@@ -54,132 +57,130 @@ export default function Login() {
   };
 
   return (
-    <Box
-      sx={{
+    <FlexBox
+      direction={FlexBoxDirection.Row}
+      style={{
         height: "100vh",
         width: "100vw",
-        display: "flex",
         overflow: "hidden",
       }}
     >
-      {/* Mitad Izquierda: Formulario */}
-      <Box
-        sx={{
+      {/* Mitad Izquierda */}
+      <FlexBox
+        direction={FlexBoxDirection.Column}
+        style={{
           width: "50%",
-          display: "flex",
+          background: "linear-gradient(135deg, #8B0000, #E53935)",
           justifyContent: "center",
           alignItems: "center",
-          background: "linear-gradient(135deg, #8B0000, #E53935)",
         }}
       >
-        <Container maxWidth={false}>
-          <Paper
-            elevation={6}
-            sx={{
-              p: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              borderRadius: 3,
-              backgroundColor: "white",
-              maxWidth: 400,
-              margin: "0 auto",
-            }}
-          >
-            {/* Logo */}
-            <img
-              src="/viba1.png"
-              alt="Carnes ViBa"
-              style={{ width: "150px", marginBottom: "20px" }}
+        <FlexBox
+          direction="Column"
+          style={{
+            backgroundColor: "white",
+            padding: "2rem",
+            borderRadius: "16px",
+            maxWidth: "400px",
+            width: "100%",
+            flexDirection: "column",
+          }}
+        >
+          <img
+            src="/viba1.png"
+            alt="Carnes ViBa"
+            style={{ width: "150px", margin: "0 auto 20px auto" }}
+          />
+
+          <Title level="H4">Iniciar Sesion</Title>
+
+          <form onSubmit={handleSubmit} style={{ marginTop: "1rem" }}>
+            <Input
+              name="email"
+              placeholder="Email"
+              value={form.email}
+              onInput={(e) => handleChange({ target: { name: "email", value: e.target.value } })}
+              style={{ marginBottom: "1rem", width: "100%" }}
             />
+            <Input
+              name="password"
+              type="Password"
+              placeholder="Contraseña"
+              value={form.password}
+              onInput={(e) => handleChange({ target: { name: "password", value: e.target.value } })}
+              style={{ marginBottom: "0.5rem", width: "100%" }}
+            />
+            {error && (
+              <Text style={{ color: "red", fontSize: "12px" }}>
+                Correo o contraseña incorrectos
+              </Text>
+            )}
 
-            <Typography variant="h5" fontWeight="bold" color="text.primary">
-              Iniciar Sesión
-            </Typography>
+            <FlexBox justifyContent="End" style={{ marginBottom: "1rem" }}>
+              <Link href="#">¿Olvidaste tu contraseña?</Link>
+            </FlexBox>
 
-            {/* Formulario */}
-            <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%", mt: 2 }}>
-              <TextField
-                label="Email"
-                name="email"
-                type="text"
-                value={form.email}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-                error={error}
-              />
-              <TextField
-                label="Contraseña"
-                name="password"
-                type="password"
-                value={form.password}
-                onChange={handleChange}
-                fullWidth
-                margin="normal"
-                error={error}
-                helperText={error ? "Correo o contraseña incorrectos" : ""}
-              />
+            <Button
+              type="Submit"
+              style={{
+                width: "100%",
+                backgroundColor: "#E53935",
+                color: "white",
+                marginBottom: "16px",
+              }}
+            >
+              Sign In
+            </Button>
 
-              <Link href="#" underline="hover" sx={{ display: "block", textAlign: "right", mt: 1 }}>
-                ¿Olvidaste tu contraseña?
-              </Link>
+            <Text style={{ textAlign: "center", marginBottom: "12px" }}>
+              o continuar con
+            </Text>
+            <MuiButton
+              fullWidth
+              startIcon={<GoogleIcon />}
+              variant="outlined"
+              sx={{
+                textTransform: "none",
+                fontSize: "16px",
+                borderColor: "#E53935",
+                color: "#E53935",
+                "&:hover": {
+                  backgroundColor: "#fbe9e7",
+                  borderColor: "#C62828",
+                },
+                marginBottom: "12px"
+              }}
+            >
+              Google
+            </MuiButton>
+            <Button
+              style={{
+                width: "100%",
+                backgroundColor: "#6c757d",
+                color: "white",
+                fontSize: "16px",
+                marginTop: "12px",
+              }}
+              onClick={() => {
+                localStorage.setItem("auth", "guest");
+                navigate("/home");
+              }}
+            >
+              Ingresar como invitado
+            </Button>
+          </form>
 
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                sx={{
-                  mt: 2,
-                  backgroundColor: "#E53935",
-                  "&:hover": { backgroundColor: "#C62828" },
-                  textTransform: "none",
-                  fontSize: "16px",
-                }}
-              >
-                Sign In
-              </Button>
+          <Text style={{ fontSize: "12px", textAlign: "center", marginTop: "1rem" }}>
+            <Link href="#">Terminos & Condiciones</Link> |{" "}
+            <Link href="#">Soporte</Link> |{" "}
+            <Link href="#">Legal & Opciones</Link>
+          </Text>
+        </FlexBox>
+      </FlexBox>
 
-              <Typography textAlign="center" sx={{ my: 2 }}>
-                o continuar con
-              </Typography>
-
-              <Button
-                variant="outlined"
-                fullWidth
-                startIcon={<GoogleIcon />}
-                sx={{
-                  textTransform: "none",
-                  fontSize: "16px",
-                  borderColor: "#E53935",
-                  color: "#E53935",
-                  "&:hover": { backgroundColor: "#fbe9e7" },
-                }}
-              >
-                Google
-              </Button>
-            </Box>
-
-            <Typography variant="caption" sx={{ mt: 2 }}>
-              <Link href="#" underline="hover">
-                Términos & Condiciones
-              </Link>{" "}
-              |{" "}
-              <Link href="#" underline="hover">
-                Soporte
-              </Link>{" "}
-              |{" "}
-              <Link href="#" underline="hover">
-                Legal & Opciones
-              </Link>
-            </Typography>
-          </Paper>
-        </Container>
-      </Box>
-
-      {/* Mitad Derecha: Imagen de fondo */}
-      <Box
-        sx={{
+      {/* Mitad Derecha */}
+      <div
+        style={{
           width: "50%",
           backgroundImage: "url('/carne.png')",
           backgroundSize: "cover",
@@ -187,6 +188,6 @@ export default function Login() {
           backgroundRepeat: "no-repeat",
         }}
       />
-    </Box>
+    </FlexBox>
   );
 }
