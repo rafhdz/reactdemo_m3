@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ShellBar,
@@ -19,7 +19,7 @@ const drawerWidth = 240;
 
 export default function Home() {
   const navigate = useNavigate();
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isSidebarOpen] = useState(true);
 
   const handleNavigationClick = (event) => {
     const selected = event.detail.item.dataset.route;
