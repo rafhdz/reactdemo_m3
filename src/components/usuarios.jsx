@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FlexBox } from "@ui5/webcomponents-react";
 import { ShellBar, SideNavigation, SideNavigationItem } from "@ui5/webcomponents-react"
 import { Card, Title, Input } from "@ui5/webcomponents-react";

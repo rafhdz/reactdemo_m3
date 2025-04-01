@@ -36,3 +36,4 @@ Este proyecto es un sistema de dashboard y login para la empresa **Carnes ViBa**
     npm run dev
 
 Luego abre http://localhost:[Puerto]/ (o el puerto que indique la consola).
+// cambio menor
