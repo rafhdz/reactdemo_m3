@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FlexBox } from "@ui5/webcomponents-react";
 import { ShellBar, SideNavigation, SideNavigationItem } from "@ui5/webcomponents-react"
 import { Card, Title, Input } from "@ui5/webcomponents-react";
-import { Table, TableRow, TableCell, Label, Button } from "@ui5/webcomponents-react";
+import { Button } from "@ui5/webcomponents-react";
 import { Dialog, Select, Option } from "@ui5/webcomponents-react";
 import "@ui5/webcomponents-icons/dist/home.js";
 import "@ui5/webcomponents-icons/dist/retail-store.js";
@@ -21,6 +21,8 @@ export default function Usuarios() {
     const [openCrear, setOpenCrear] = useState(false);
     const [openEditar, setOpenEditar] = useState(false);
     const [usuarioEditar, setUsuarioEditar] = useState(null);
+    const [usuariosSeleccionados, setUsuariosSeleccionados] = useState([]);
+
 
 
     //Placeholders
@@ -55,9 +57,11 @@ export default function Usuarios() {
         }
     };
 
-    const eliminarUsuario = (id) => {
-        setUsuarios(usuarios.filter((u) => u.id !== id));
+    const eliminarUsuariosSeleccionados = () => {
+        setUsuarios(usuarios.filter((u) => !usuariosSeleccionados.includes(u.id)));
+        setUsuariosSeleccionados([]); // limpiar selección después de eliminar
     };
+
     {/* Box Crear Usuarios */ }
     <Dialog
         headerText="Agregar Usuario"
@@ -184,7 +188,14 @@ export default function Usuarios() {
                         icon="search"
                     />
                     <FlexBox direction="Row" wrap style={{ gap: "0.5rem" }}>
-                        <Button design="Negative" icon="delete">Eliminar</Button>
+                        <Button
+                            design="Negative"
+                            icon="delete"
+                            onClick={eliminarUsuariosSeleccionados}
+                            disabled={usuariosSeleccionados.length === 0}
+                        >
+                            Eliminar
+                        </Button>
                         <Button design="Emphasized" icon="add" onClick={() => setOpenCrear(true)}>Crear</Button>
                         <Button
                             design="Attention"
@@ -217,8 +228,17 @@ export default function Usuarios() {
                                     <td style={{ padding: "12px" }}>
                                         <input
                                             type="checkbox"
-                                            onChange={() => setUsuarioEditar(usuario)}
+                                            checked={usuariosSeleccionados.includes(usuario.id)}
+                                            onChange={(e) => {
+                                                const checked = e.target.checked;
+                                                if (checked) {
+                                                    setUsuariosSeleccionados([...usuariosSeleccionados, usuario.id]);
+                                                } else {
+                                                    setUsuariosSeleccionados(usuariosSeleccionados.filter(id => id !== usuario.id));
+                                                }
+                                            }}
                                         />
+
                                     </td>
                                     <td style={{ padding: "12px" }}>{usuario.nombre}</td>
                                     <td style={{ padding: "12px" }}>{usuario.correo}</td>
