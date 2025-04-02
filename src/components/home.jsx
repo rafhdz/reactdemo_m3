@@ -144,7 +144,7 @@ export default function Home() {
           </Grid>
           <Grid item xs={12} md={6}>
             <Card style={{ height: 300, padding: "1rem" }}>
-              <Title level="H6"> Time to receive payment (Placeholder)</Title>
+              <Title level="H6"> Receive payment (Placeholder)</Title>
               <FlexBox
                 direction="Column"
                 style={{
