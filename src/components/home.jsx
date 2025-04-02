@@ -7,9 +7,9 @@ import {
   Card,
   Title,
   Text,
-  FlexBox
+  FlexBox,
 } from "@ui5/webcomponents-react";
-import { Grid } from "@mui/material"; 
+import { Grid } from "@mui/material";
 
 import "@ui5/webcomponents-icons/dist/home.js";
 import "@ui5/webcomponents-icons/dist/retail-store.js";
@@ -30,7 +30,9 @@ export default function Home() {
     <FlexBox direction="Row" style={{ height: "100vh", width: "100vw" }}>
       {/* ShellBar superior */}
       <ShellBar
-        logo={<img src="/viba1.png" alt="Carnes ViBa" style={{ height: "40px" }} />}
+        logo={
+          <img src="/viba1.png" alt="Carnes ViBa" style={{ height: "40px" }} />
+        }
         primaryTitle="Productos"
         onProfileClick={() => navigate("/login")}
         profile={{ image: "/viba1.png" }}
@@ -55,13 +57,31 @@ export default function Home() {
           }}
         >
           <SideNavigation onSelectionChange={handleNavigationClick}>
-          <SideNavigationItem icon="home" text="Dashboard" data-route="/Home" />
-          <SideNavigationItem icon="retail-store" text="Producto" data-route="/producto" />
-          <SideNavigationItem icon="navigation-right-arrow" text="Carne de res" />
-          <SideNavigationItem icon="navigation-right-arrow" text="Carne de cerdo" />
-          <SideNavigationItem icon="navigation-right-arrow" text="Pollo" />
-          <SideNavigationItem icon="navigation-right-arrow" text="Pavo" />
-          <SideNavigationItem icon="employee" text="Usuarios" data-route="/usuarios" />
+            <SideNavigationItem
+              icon="home"
+              text="Dashboard"
+              data-route="/Home"
+            />
+            <SideNavigationItem
+              icon="retail-store"
+              text="Producto"
+              data-route="/producto"
+            />
+            <SideNavigationItem
+              icon="navigation-right-arrow"
+              text="Carne de res"
+            />
+            <SideNavigationItem
+              icon="navigation-right-arrow"
+              text="Carne de cerdo"
+            />
+            <SideNavigationItem icon="navigation-right-arrow" text="Pollo" />
+            <SideNavigationItem icon="navigation-right-arrow" text="Pavo" />
+            <SideNavigationItem
+              icon="employee"
+              text="Usuarios"
+              data-route="/usuarios"
+            />
           </SideNavigation>
         </div>
       )}
@@ -89,7 +109,9 @@ export default function Home() {
               <Card style={{ padding: "1rem" }}>
                 <div style={{ paddingInline: "0.5rem" }}>
                   <Title level="H5">{stat.title}</Title>
-                  <Text style={{ color: "#666", fontSize: "14px", marginTop: 4 }}>
+                  <Text
+                    style={{ color: "#666", fontSize: "14px", marginTop: 4 }}
+                  >
                     {stat.subtitle}
                   </Text>
                 </div>
@@ -102,7 +124,7 @@ export default function Home() {
         <Grid container spacing={2} style={{ marginTop: "1rem" }}>
           <Grid item xs={12} md={6}>
             <Card style={{ height: 300, padding: "1rem" }}>
-              <Title level="H6">Prediccion de demanda (Placeholder)</Title>
+              <Title level="H6">Rafael (Placeholder)</Title>
               <FlexBox
                 direction="Column"
                 style={{
@@ -114,13 +136,15 @@ export default function Home() {
                   borderRadius: "8px",
                 }}
               >
-                <Text style={{ fontSize: "12px", color: "#777" }}>contenido</Text>
+                <Text style={{ fontSize: "12px", color: "#777" }}>
+                  contenido
+                </Text>
               </FlexBox>
             </Card>
           </Grid>
           <Grid item xs={12} md={6}>
             <Card style={{ height: 300, padding: "1rem" }}>
-              <Title level="H6">Tiempo en recibir un pedido (Placeholder)</Title>
+              <Title level="H6"> Time to receive payment (Placeholder)</Title>
               <FlexBox
                 direction="Column"
                 style={{
@@ -132,7 +156,9 @@ export default function Home() {
                   borderRadius: "8px",
                 }}
               >
-                <Text style={{ fontSize: "12px", color: "#777" }}>contenido</Text>
+                <Text style={{ fontSize: "12px", color: "#777" }}>
+                  contenido
+                </Text>
               </FlexBox>
             </Card>
           </Grid>
