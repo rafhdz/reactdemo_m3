@@ -1,4 +1,4 @@
-name: GitHub Pages Deploy
+name: Build, Test and Deploy to GitHub Pages
 
 on:
   push:
@@ -8,6 +8,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -23,7 +27,13 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test
 
       - name: Build project
         run: npm run build
