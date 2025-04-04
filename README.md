@@ -21,7 +21,7 @@ Este proyecto es un sistema de dashboard y login para la empresa **Carnes ViBa**
 
 1. **Clonar el repositorio**:
    ```bash
-   git clone https://github.com/joelvshimself/reactdemo.git
+   git clone https://github.com/rafhdz/reactdemo_m3.git
    
 2. **Entrar a la carpeta**:
    ```bash
