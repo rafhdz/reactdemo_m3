@@ -1,4 +1,5 @@
 import * as React from "react";
+import viba1 from "../assets/viba1.png";
 import { useNavigate } from "react-router-dom";
 import {
   AppBar,
@@ -52,11 +53,7 @@ export default function Producto() {
           p: 2,
         }}
       >
-        <img
-          src="/viba1.png"
-          alt="Carnes ViBa"
-          style={{ width: "120px" }}
-        />
+        <img src={viba1} alt="Carnes ViBa" style={{ width: "120px" }} />
       </Box>
       <Divider />
       {/* Opciones de menú */}
@@ -224,7 +221,9 @@ export default function Producto() {
               <CardActionArea
                 sx={{ height: "100%" }}
                 onClick={() => {
-                  console.log("Cortando vacas en función del tiempo de pedido...");
+                  console.log(
+                    "Cortando vacas en función del tiempo de pedido..."
+                  );
                   alert("¡Vacas en proceso de corte!");
                 }}
               >

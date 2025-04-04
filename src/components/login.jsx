@@ -7,12 +7,12 @@ import {
   Title,
   Text,
   FlexBox,
-  FlexBoxDirection
+  FlexBoxDirection,
 } from "@ui5/webcomponents-react";
 import GoogleIcon from "@mui/icons-material/Google";
 import { Button as MuiButton } from "@mui/material";
-
-
+import viba1 from "../assets/viba1.png";
+import carne from "../assets/carne.png";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -87,7 +87,7 @@ export default function Login() {
           }}
         >
           <img
-            src="/viba1.png"
+            src={viba1}
             alt="Carnes ViBa"
             style={{ width: "150px", margin: "0 auto 20px auto" }}
           />
@@ -99,7 +99,11 @@ export default function Login() {
               name="email"
               placeholder="Email"
               value={form.email}
-              onInput={(e) => handleChange({ target: { name: "email", value: e.target.value } })}
+              onInput={(e) =>
+                handleChange({
+                  target: { name: "email", value: e.target.value },
+                })
+              }
               style={{ marginBottom: "1rem", width: "100%" }}
             />
             <Input
@@ -107,7 +111,11 @@ export default function Login() {
               type="Password"
               placeholder="Contraseña"
               value={form.password}
-              onInput={(e) => handleChange({ target: { name: "password", value: e.target.value } })}
+              onInput={(e) =>
+                handleChange({
+                  target: { name: "password", value: e.target.value },
+                })
+              }
               style={{ marginBottom: "0.5rem", width: "100%" }}
             />
             {error && (
@@ -148,7 +156,7 @@ export default function Login() {
                   backgroundColor: "#fbe9e7",
                   borderColor: "#C62828",
                 },
-                marginBottom: "12px"
+                marginBottom: "12px",
               }}
             >
               Google
@@ -170,7 +178,9 @@ export default function Login() {
             </Button>
           </form>
 
-          <Text style={{ fontSize: "12px", textAlign: "center", marginTop: "1rem" }}>
+          <Text
+            style={{ fontSize: "12px", textAlign: "center", marginTop: "1rem" }}
+          >
             <Link href="#">Terminos & Condiciones</Link> |{" "}
             <Link href="#">Soporte</Link> |{" "}
             <Link href="#">Legal & Opciones</Link>
@@ -182,7 +192,7 @@ export default function Login() {
       <div
         style={{
           width: "50%",
-          backgroundImage: "url('/carne.png')",
+          backgroundImage: `url(${carne})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

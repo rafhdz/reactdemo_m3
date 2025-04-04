@@ -11,6 +11,8 @@ import {
 } from "@ui5/webcomponents-react";
 import { Grid } from "@mui/material";
 
+import carne from "../assets/carne.png";
+import viba1 from "../assets/viba1.png";
 import "@ui5/webcomponents-icons/dist/home.js";
 import "@ui5/webcomponents-icons/dist/retail-store.js";
 import "@ui5/webcomponents-icons/dist/navigation-right-arrow.js";
@@ -30,12 +32,10 @@ export default function Home() {
     <FlexBox direction="Row" style={{ height: "100vh", width: "100vw" }}>
       {/* ShellBar superior */}
       <ShellBar
-        logo={
-          <img src="/viba1.png" alt="Carnes ViBa" style={{ height: "40px" }} />
-        }
+        logo={<img src={viba1} alt="Carnes ViBa" style={{ height: "40px" }} />}
         primaryTitle="Productos"
         onProfileClick={() => navigate("/login")}
-        profile={{ image: "/viba1.png" }}
+        profile={{ image: viba1 }}
         style={{
           width: "100%",
           background: "#B71C1C",
