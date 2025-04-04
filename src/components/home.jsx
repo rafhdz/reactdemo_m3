@@ -11,7 +11,6 @@ import {
 } from "@ui5/webcomponents-react";
 import { Grid } from "@mui/material";
 
-import carne from "../assets/carne.png";
 import viba1 from "../assets/viba1.png";
 import "@ui5/webcomponents-icons/dist/home.js";
 import "@ui5/webcomponents-icons/dist/retail-store.js";
